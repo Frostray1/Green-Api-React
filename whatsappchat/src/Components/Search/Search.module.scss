@@ -1,0 +1,26 @@
+.searchContainer {
+	margin: 0.5em;
+	display: flex;
+	align-items: center;
+	width: 95%;
+	background: rgb(31, 44, 51);
+	border-radius: 8px;
+	overflow: hidden;
+
+	input {
+		color: white;
+		flex-grow: 1;
+		padding: 0.5rem;
+		border: none;
+		background: rgb(31, 44, 51);
+		outline: none;
+	}
+
+	button {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		padding: 0.5rem;
+		color: gray;
+	}
+}

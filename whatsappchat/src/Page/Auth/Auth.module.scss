@@ -1,0 +1,35 @@
+.authContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  
+    h2 {
+      margin-bottom: 1rem;
+    }
+  
+    .authForm {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+  
+      input {
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+      }
+  
+      button {
+        padding: 0.5rem 1rem;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: #0069d9;
+        }
+      }
+    }
+  }
+  

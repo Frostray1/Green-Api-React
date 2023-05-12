@@ -1,0 +1,44 @@
+.homeContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	background: rgb(17, 27, 33);
+	color: white;
+}
+
+.chatContainer {
+	width: 90%;
+	height: 95%;
+	background: rgb(31, 44, 51);
+}
+
+.chats {
+	padding: 0;
+	height: 100%;
+    background:rgb(17, 27, 33);
+	border-right: 1px solid rgb(48, 61, 69);
+    display: flex;
+	flex-direction: column;
+    align-items: center;
+}
+
+.chatsHeader {
+	height: 3.5em;
+	width: 100%;
+	display: flex;
+	align-items: center;
+    padding: 1em;
+    background:rgb(31, 44, 51);
+}
+
+.profileIcon {
+	font-size: 30px;
+}
+
+.IdInstance {
+	margin: 0;
+    margin-left: 0.5em;
+	font-size: 30px;
+}
