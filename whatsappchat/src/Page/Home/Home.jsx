@@ -6,6 +6,7 @@ import Search from '../../Components/Search/Search'
 import Chat from '../../Components/Chat/Chat'
 import { AuthContext } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import ContactsList from '../../Components/ContactsList/ContactsList'
 
 const Home = () => {
 	const navigate = useNavigate()
@@ -31,6 +32,7 @@ const Home = () => {
 						<button onClick={() => handleSubmit()}>logout</button>
 					</div>
 					<Search />
+					<ContactsList/>
 				</Col>
 				<Col>
 					<Chat />
