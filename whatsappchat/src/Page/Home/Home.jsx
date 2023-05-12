@@ -1,35 +1,24 @@
-import React, { useState } from 'react'
-// import { sendMessage } from 'green-api-service'; // Здесь импортируйте соответствующую функцию для отправки сообщений через GREEN-API
-// import { getMessage } from 'green-api-service'; // Здесь импортируйте соответствующую функцию для получения сообщений через GREEN-API
+import React, { useContext } from 'react'
 import styles from './Home.module.scss'
 import { Col, Row } from 'react-bootstrap'
 import { FiUser } from 'react-icons/fi'
 import Search from '../../Components/Search/Search'
 import Chat from '../../Components/Chat/Chat'
+import { AuthContext } from '../../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
+
 const Home = () => {
-	const [message, setMessage] = useState('')
-	const [receivedMessage, setReceivedMessage] = useState('')
+	const navigate = useNavigate()
+	const {
+		idInstance,
 
-	const handleSendMessage = async () => {
-		// try {
-		//   await sendMessage(message); // Отправка сообщения через GREEN-API
-		//   // Дополнительная логика при успешной отправке
-		//   setMessage('');
-		// } catch (error) {
-		//   // Обработка ошибок при отправке сообщения
-		//   console.error(error);
-		// }
-	}
-
-	const handleGetMessage = async () => {
-		// try {
-		//   const response = await getMessage(); // Получение сообщения через GREEN-API
-		//   // Обработка полученного сообщения
-		//   setReceivedMessage(response.data.message);
-		// } catch (error) {
-		//   // Обработка ошибок при получении сообщения
-		//   console.error(error);
-		// }
+		updateIdInstance,
+		updateApiTokenInstance
+	} = useContext(AuthContext)
+	const handleSubmit = () => {
+		updateIdInstance('')
+		updateApiTokenInstance('')
+		navigate('/auth')
 	}
 
 	return (
@@ -38,11 +27,14 @@ const Home = () => {
 				<Col xs={4} className={styles.chats}>
 					<div className={styles.chatsHeader}>
 						<FiUser className={styles.profileIcon} />
-						<h4 className={styles.IdInstance}>IdInstance</h4>
+						<h4 className={styles.IdInstance}>{idInstance}</h4>
+						<button onClick={() => handleSubmit()}>logout</button>
 					</div>
 					<Search />
 				</Col>
-				<Col><Chat/></Col>
+				<Col>
+					<Chat />
+				</Col>
 			</Row>
 		</div>
 	)
