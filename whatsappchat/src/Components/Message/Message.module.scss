@@ -1,0 +1,35 @@
+.inMessage{
+    display: flex;
+    margin-top: 2em;
+    color:rgb(140,137,154)brightness(2%);
+    
+    .textMessage{
+        font-size: 17px;
+        margin-left: 0.5em;
+        p{
+            background:rgb(63, 62, 92);
+            border-radius:10px;
+            padding: 0.5em;
+        }
+        
+    }
+}
+
+
+.outMessage{
+    margin-top: 1em;
+    display: flex;
+    color:white;
+    
+    .textMessage{
+        order: 1;
+        margin-left: auto;
+        font-size: 16px;
+        margin-right: 0.5em;
+        p{
+            border-radius:10px;
+            background:rgb(77,56,162);
+            padding: 0.5em;
+        }
+    }
+}

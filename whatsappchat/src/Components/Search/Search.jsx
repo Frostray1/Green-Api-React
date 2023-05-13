@@ -1,28 +1,27 @@
 import React, { useState } from 'react'
 import styles from './Search.module.scss'
-import { GoSearch } from 'react-icons/go'
+import { BsChatLeftDots } from 'react-icons/bs'
 
-const Search = () => {
-	const [searchTerm, setSearchTerm] = useState('')
+const Search = ({ onSearch }) => {
+  const [searchTerm, setSearchTerm] = useState('')
 
-	const handleSearch = () => {
-		// Логика обработки поиска
-		console.log('Searching for:', searchTerm)
-	}
+  const handleSearch = () => {
+    onSearch(searchTerm)
+  }
 
-	return (
-		<div className={styles.searchContainer}>
-			<button onClick={handleSearch}>
-				<GoSearch />
-			</button>
-			<input
-				type='text'
-				placeholder='Введите номер телефона'
-				value={searchTerm}
-				onChange={e => setSearchTerm(e.target.value)}
-			/>
-		</div>
-	)
+  return (
+    <div className={styles.searchContainer}>
+      <input
+        type='text'
+        placeholder='Введите номер телефона'
+        value={searchTerm}
+        onChange={e => setSearchTerm(e.target.value)}
+      />
+      <button onClick={handleSearch}>
+        <BsChatLeftDots />
+      </button>
+    </div>
+  )
 }
 
 export default Search

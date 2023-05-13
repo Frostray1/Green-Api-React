@@ -33,6 +33,15 @@
 	align-items: center;
     padding: 1em;
     background:rgb(31, 44, 51);
+	button{
+		display: flex;
+		border: none;
+		background:transparent;
+		margin-left: auto;
+		font-size: 25px;
+		color:white;
+		justify-content: center;
+	}
 }
 
 .profileIcon {
@@ -44,3 +53,5 @@
     margin-left: 0.5em;
 	font-size: 30px;
 }
+
+
