@@ -4,13 +4,13 @@ import { AiOutlineVideoCamera, AiOutlineUserAdd } from 'react-icons/ai'
 import { Col, Row } from 'react-bootstrap'
 import { BsThreeDots } from 'react-icons/bs'
 import Input from '../Input/Input'
-import useChatsApi from '../../hooks/useChatsApi';
-import Messages from './Messages';
+import useChatsApi from '../../hooks/useChatsApi'
+import Messages from './Messages'
 
 const Chat = ({ searchTerm }) => {
 	const [messages, setMessages] = useState([])
 
-	const { fetchChats, fetchNotifications } = useChatsApi();
+	const { fetchChats, fetchNotifications } = useChatsApi()
 
 	useEffect(() => {
 		setMessages([])
@@ -20,23 +20,28 @@ const Chat = ({ searchTerm }) => {
 		if (searchTerm && messages.length > 0) {
 			const message = messages[messages.length - 1]
 			console.log(messages)
-			fetchChats({ chatId: `${searchTerm}@c.us`, message: message.text });
+			fetchChats({ chatId: `${searchTerm}@c.us`, message: message.text })
 		}
 	}, [fetchChats, messages, searchTerm])
 
-  const updateMessages = useCallback(() => {
-		fetchNotifications()
-		.then((result) => {
-				const newInMessage = result.data.body.messageData.textMessageData.textMessage
-				if (newInMessage) {
-					setMessages((prev) => [...prev, { text: newInMessage, type: 'in' }])
-				}
+	const updateMessages = useCallback(() => {
+		fetchNotifications().then(result => {
+			const newInMessage =
+				result.data.body.messageData.textMessageData.textMessage
+			if (
+				newInMessage &&
+				!messages.some(msg => msg.text === newInMessage)
+			) {
+				setMessages(prev => [
+					...prev,
+					{ text: newInMessage, type: 'in' }
+				])
+			}
 			console.log('result', result)
-
 		})
-	}, [fetchNotifications])
+	}, [fetchNotifications, messages])
 
-  useEffect(() => {
+	useEffect(() => {
 		if (searchTerm) {
 			const intervalId = setInterval(updateMessages, 15000)
 			return () => clearInterval(intervalId)
@@ -45,7 +50,10 @@ const Chat = ({ searchTerm }) => {
 
 	const handleSendMessage = message => {
 		console.log('message', message)
-		setMessages(prevMessages => [...prevMessages, { text: message, type: 'out' }])
+		setMessages(prevMessages => [
+			...prevMessages,
+			{ text: message, type: 'out' }
+		])
 	}
 
 	console.log('messages', messages)
