@@ -13,7 +13,7 @@ const Input = ({ onSendMessage }) => {
 
   const handleSend = () => {
     if (text) {
-      onSendMessage(text); // Call the onSendMessage function with the text
+      onSendMessage(text); 
       setText("");
     }
   };

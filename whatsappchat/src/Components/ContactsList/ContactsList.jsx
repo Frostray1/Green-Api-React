@@ -10,7 +10,7 @@ const ContactsList = ({ searchTerm }) => {
 
 	return (
 		<div className={styles.ContactsContainer}>
-			{searchTerm && <ContactsItem searchTerm={searchTerm} />}
+			{/* {searchTerm && <ContactsItem searchTerm={searchTerm} />} */}
 		</div>
 	)
 }
