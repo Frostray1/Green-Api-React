@@ -16,25 +16,61 @@ const Chat = ({ searchTerm }) => {
 	const [inMessage, setInMessage] = useState(null)
 
 	useEffect(() => {
+		setMessages([]) // Очистка массива сообщений при изменении searchTerm
+	}, [searchTerm])
+
+	useEffect(() => {
+		// setMessages([]);
+		const fetchChats = async data => {
+			try {
+				const response = await axios.post(
+					`${proxy}https://api.green-api.com/waInstance${idInstance}/sendMessage/${apiTokenInstance}`,
+					data
+				)
+				console.log('Ответ сервера:', response.data)
+			} catch (error) {
+				console.error('Ошибка при выполнении запроса:', error)
+			}
+		}
+
+		if (searchTerm && messages.length > 0) {
+			const message = messages[messages.length - 1]
+			console.log(messages)
+			// fetchChats({ chatId: `${searchTerm}@c.us`, message: message })
+		}
+	}, [messages])
+
+	useEffect(() => {
 		const fetchNotifications = async () => {
 			try {
 				const response = await axios.get(
 					`${proxy}https://api.green-api.com/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`
 				)
-				console.log('Уведомления:', response.data)
-				setNotification(
-					response.data.body.senderData.chatId.split('@')[0]
-				)
-				setInMessage(
-					response.data.body.messageData.textMessageData.textMessage
-				)
+				if (response.data !== null) {
+					console.log('Уведомления:', response.data)
+					setNotification(
+						response.data.body.senderData.chatId.split('@')[0]
+					)
+					setInMessage(
+						response.data.body.messageData.textMessageData
+							.textMessage
+					)
+					const deleteNotification = await axios.delete(
+						`${proxy}https://api.green-api.com/waInstance${idInstance}/deleteNotification/${apiTokenInstance}/${response.data.receiptId}`
+					)
+				}
 			} catch (error) {
 				console.error('Ошибка при получении уведомлений:', error)
 			}
 		}
 
+		
 		if (searchTerm) {
-			fetchNotifications()
+			// const intervalId = setInterval(fetchNotifications, 15000);
+			// fetchNotifications()
+			messages.push(inMessage)
+			// return () => clearInterval(intervalId);
+
 		}
 	}, [searchTerm])
 
@@ -58,12 +94,15 @@ const Chat = ({ searchTerm }) => {
 				</Col>
 			</Row>
 			<Row className={styles.messagesChat}>
-				{messages.map((message, index) => (
+			{messages.map((message, index) => (
+				notification === searchTerm ? <Message text={inMessage} style={'inMessage'} /> : <Message key={index} text={message} style={'outMessage'} />
+				))}
+				{/* {messages.map((message, index) => (
 					<Message key={index} text={message} style={'outMessage'} />
 				))}
 				{notification === searchTerm && (
 					<Message text={inMessage} style={'inMessage'} />
-				)}
+				)} */}
 			</Row>
 			<Row className={styles.inputChat}>
 				<Input onSendMessage={handleSendMessage} />
