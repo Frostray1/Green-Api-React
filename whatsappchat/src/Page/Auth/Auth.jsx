@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import styles from './Auth.module.scss'
 import { AuthContext } from '../../context/AuthContext'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { routes } from '../../router/routes'
 
 const Auth = () => {
 	const {
@@ -17,7 +18,7 @@ const Auth = () => {
 		console.log(idInstance)
 		console.log(apiTokenInstance)
 
-		navigate('/')
+		navigate(routes.home)
 	}
 
 	return (
@@ -40,4 +41,4 @@ const Auth = () => {
 	)
 }
 
-export default Auth
+export default Auth;
