@@ -1,27 +1,38 @@
-import React, { useState } from 'react'
-import styles from './Search.module.scss'
-import { BsChatLeftDots } from 'react-icons/bs'
+import React, { useState } from 'react';
+import styles from './Search.module.scss';
+import { BsChatLeftDots } from 'react-icons/bs';
 
 const Search = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('')
+	const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSearch = () => {
-    onSearch(searchTerm)
-  }
+	const handleKey = e => {
+		e.code === 'Enter' && handleSearch();
+	};
 
-  return (
-    <div className={styles.searchContainer}>
-      <input
-        type='text'
-        placeholder='Введите номер телефона'
-        value={searchTerm}
-        onChange={e => setSearchTerm(e.target.value)}
-      />
-      <button onClick={handleSearch}>
-        <BsChatLeftDots />
-      </button>
-    </div>
-  )
-}
+	const handleSearch = () => {
+		onSearch(searchTerm);
+	};
 
-export default Search
+	const handleInputChange = e => {
+		const inputValue = e.target.value;
+		const numericValue = inputValue.replace(/\D/g, '');
+		setSearchTerm(numericValue);
+	};
+
+	return (
+		<div className={styles.searchContainer}>
+			<input
+				type='text'
+				placeholder='Введите номер телефона'
+				value={searchTerm}
+				onChange={handleInputChange}
+				onKeyDown={handleKey}
+			/>
+			<button onClick={handleSearch}>
+				<BsChatLeftDots />
+			</button>
+		</div>
+	);
+};
+
+export default Search;

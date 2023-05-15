@@ -1,14 +1,18 @@
-import React from 'react'
-import styles from './Message.module.scss'
+import React from 'react';
+import styles from './Message.module.scss';
 
-const Message = ({text, style}) => {
+const Message = ({ text, style }) => {
 	return (
-		<div className={style === 'inMessage'? styles.inMessage: styles.outMessage}>
+		<div
+			className={
+				style === 'inMessage' ? styles.inMessage : styles.outMessage
+			}
+		>
 			<div className={styles.textMessage}>
 				<p>{text}</p>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default Message
+export default Message;

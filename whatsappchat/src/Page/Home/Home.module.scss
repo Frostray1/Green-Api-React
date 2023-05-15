@@ -6,7 +6,6 @@
 	height: 100vh;
 	background: rgb(17, 27, 33);
 	color: white;
-
 }
 
 .chatContainer {
@@ -19,11 +18,11 @@
 .chats {
 	padding: 0;
 	height: 100%;
-    background:rgb(17, 27, 33);
+	background: rgb(17, 27, 33);
 	border-right: 1px solid rgb(48, 61, 69);
-    display: flex;
+	display: flex;
 	flex-direction: column;
-    align-items: center;
+	align-items: center;
 }
 
 .chatsHeader {
@@ -31,15 +30,15 @@
 	width: 100%;
 	display: flex;
 	align-items: center;
-    padding: 1em;
-    background:rgb(31, 44, 51);
-	button{
+	padding: 1em;
+	background: rgb(31, 44, 51);
+	button {
 		display: flex;
 		border: none;
-		background:transparent;
+		background: transparent;
 		margin-left: auto;
 		font-size: 25px;
-		color:white;
+		color: white;
 		justify-content: center;
 	}
 }
@@ -50,8 +49,6 @@
 
 .IdInstance {
 	margin: 0;
-    margin-left: 0.5em;
+	margin-left: 0.5em;
 	font-size: 30px;
 }
-
-

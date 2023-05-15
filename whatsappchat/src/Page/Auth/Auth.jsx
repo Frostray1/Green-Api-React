@@ -1,25 +1,17 @@
-import React, { useContext } from 'react'
-import styles from './Auth.module.scss'
-import { AuthContext } from '../../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
-import { routes } from '../../router/routes'
+import React, { useContext } from 'react';
+import styles from './Auth.module.scss';
+import { AuthContext } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { routes } from '../../router/routes';
 
 const Auth = () => {
-	const {
-		idInstance,
-		apiTokenInstance,
-		updateIdInstance,
-		updateApiTokenInstance
-	} = useContext(AuthContext)
-	const navigate = useNavigate()
+	const { updateIdInstance, updateApiTokenInstance } = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	const handleSubmit = e => {
-		e.preventDefault()
-		console.log(idInstance)
-		console.log(apiTokenInstance)
-
-		navigate(routes.home)
-	}
+		e.preventDefault();
+		navigate(routes.home);
+	};
 
 	return (
 		<div className={styles.authContainer}>
@@ -38,7 +30,7 @@ const Auth = () => {
 				<button type='submit'>Войти</button>
 			</form>
 		</div>
-	)
-}
+	);
+};
 
 export default Auth;

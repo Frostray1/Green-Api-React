@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Router from './router';
 
@@ -7,7 +7,7 @@ function App() {
 		<div className='App'>
 			<Router />
 		</div>
-	)
+	);
 }
 
-export default App
+export default App;

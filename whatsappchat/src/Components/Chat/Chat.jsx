@@ -1,62 +1,72 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import styles from './Chat.module.scss'
-import { AiOutlineVideoCamera, AiOutlineUserAdd } from 'react-icons/ai'
-import { Col, Row } from 'react-bootstrap'
-import { BsThreeDots } from 'react-icons/bs'
-import Input from '../Input/Input'
-import useChatsApi from '../../hooks/useChatsApi'
-import Messages from './Messages'
+import React, { useEffect, useState, useCallback } from 'react';
+import styles from './Chat.module.scss';
+import { AiOutlineVideoCamera, AiOutlineUserAdd } from 'react-icons/ai';
+import { Col, Row } from 'react-bootstrap';
+import { BsThreeDots } from 'react-icons/bs';
+import Input from '../Input/Input';
+import useChatsApi from '../../hooks/useChatsApi';
+import Messages from './Messages';
 
 const Chat = ({ searchTerm }) => {
-	const [messages, setMessages] = useState([])
+	const [messages, setMessages] = useState([]);
+	const [telNumber, setTelNumber] = useState(null);
 
-	const { fetchChats, fetchNotifications } = useChatsApi()
+	const { fetchChats, fetchNotifications } = useChatsApi();
 
 	useEffect(() => {
-		setMessages([])
-	}, [searchTerm])
+		setMessages([]);
+		setTelNumber(searchTerm);
+	}, [searchTerm]);
 
 	useEffect(() => {
 		if (searchTerm && messages.length > 0) {
-			const message = messages[messages.length - 1]
-			console.log(messages)
-			fetchChats({ chatId: `${searchTerm}@c.us`, message: message.text })
+			if (telNumber === searchTerm) {
+				if (messages[messages.length - 1].type === 'out') {
+					const message = messages[messages.length - 1];
+					fetchChats({
+						chatId: `${searchTerm}@c.us`,
+						message: message.text
+					});
+				}
+			}
 		}
-	}, [fetchChats, messages, searchTerm])
+	}, [fetchChats, messages, searchTerm]);
 
 	const updateMessages = useCallback(() => {
 		fetchNotifications().then(result => {
-			const newInMessage =
-				result.data.body.messageData.textMessageData.textMessage
 			if (
-				newInMessage &&
-				!messages.some(msg => msg.text === newInMessage)
+				result.data !== null &&
+				result.data.body.senderData.chatId.split('@')[0] === searchTerm
 			) {
-				setMessages(prev => [
-					...prev,
-					{ text: newInMessage, type: 'in' }
-				])
+				const newInMessage =
+					result.data.body.messageData.textMessageData.textMessage;
+				if (
+					newInMessage &&
+					!messages.some(msg => msg.text === newInMessage)
+				) {
+					setMessages(prev => [
+						...prev,
+						{ text: newInMessage, type: 'in' }
+					]);
+				}
 			}
-			console.log('result', result)
-		})
-	}, [fetchNotifications, messages])
+		});
+	}, [fetchNotifications, messages]);
 
 	useEffect(() => {
 		if (searchTerm) {
-			const intervalId = setInterval(updateMessages, 15000)
-			return () => clearInterval(intervalId)
+			const intervalId = setInterval(updateMessages, 15000);
+			return () => clearInterval(intervalId);
 		}
-	}, [fetchNotifications, searchTerm, updateMessages])
+	}, [fetchNotifications, searchTerm, updateMessages]);
 
 	const handleSendMessage = message => {
-		console.log('message', message)
 		setMessages(prevMessages => [
 			...prevMessages,
 			{ text: message, type: 'out' }
-		])
-	}
+		]);
+	};
 
-	console.log('messages', messages)
 	return (
 		<div className={styles.chat}>
 			<Row className={styles.headerChat}>
@@ -76,7 +86,7 @@ const Chat = ({ searchTerm }) => {
 				<Input onSendMessage={handleSendMessage} />
 			</Row>
 		</div>
-	)
-}
+	);
+};
 
-export default Chat
+export default Chat;
