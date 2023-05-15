@@ -5,11 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { routes } from '../../router/routes';
 
 const Auth = () => {
-	const { updateIdInstance, updateApiTokenInstance } = useContext(AuthContext);
+	const {
+		updateIdInstance,
+		updateApiTokenInstance
+	} = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const handleSubmit = e => {
 		e.preventDefault();
+	
 		navigate(routes.home);
 	};
 
@@ -28,6 +32,7 @@ const Auth = () => {
 					onChange={e => updateApiTokenInstance(e.target.value)}
 				/>
 				<button type='submit'>Войти</button>
+				
 			</form>
 		</div>
 	);
